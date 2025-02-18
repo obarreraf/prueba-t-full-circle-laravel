@@ -9,10 +9,6 @@ use App\Http\Actions\Tasks\UpdateTaskAction;
 use App\Http\Actions\Tasks\DestroyTaskAction;
 use App\Http\Actions\Tasks\CompletedTasksLastWeekAction;
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
-
 Route::prefix('tasks')->group(function () {
     Route::get('/', IndexTaskAction::class);
     Route::post('/', StoreTaskAction::class);
