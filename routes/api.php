@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Actions\Tasks\IndexTaskAction;
 use App\Http\Actions\Tasks\StoreTaskAction;
+use App\Http\Actions\Tasks\UpdateTaskAction;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -13,4 +14,5 @@ Route::get('/user', function (Request $request) {
 Route::prefix('tasks')->group(function () {
     Route::get('/', IndexTaskAction::class);
     Route::post('/', StoreTaskAction::class);
+    Route::put('/{task}', UpdateTaskAction::class);
 });

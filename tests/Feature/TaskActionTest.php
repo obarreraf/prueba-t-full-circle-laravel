@@ -64,23 +64,34 @@ class IndexTaskActionTest extends TestCase
 
         $response->assertStatus(422);
 
-        $response->assertJsonFragment([
-            'message' => 'The title field is required. (and 2 more errors)',
+        $response->assertJsonValidationErrors(['title', 'description']);
+    }
+
+    /** @test */
+    public function success_update_task_status()
+    {
+        $taskUpdate = Task::factory()->create(['status' => 'pending']);
+        $response = $this->putJson('/api/tasks/'.$taskUpdate->id, [
+            'status' => 'completed',
         ]);
 
-        $response->assertJsonFragment([
-            'errors' => [
-                'title' => [
-                    'The title field is required.'
-                ],
-                'description' => [
-                    'The description field is required.'
-                ],
-                'status' => [
-                    'The status field is required.'
-                ],
-            ],
+        $taskUpdate->refresh();
+
+        $response->assertStatus(200);
+
+        $this->assertEquals('completed', $taskUpdate->status);
+    }
+
+    /** @test */
+    public function error_update_task_status()
+    {
+        $response = $this->putJson('/api/tasks/'.$this->tasks[1]->id,[
+            'status' => ''
         ]);
+
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors(['status']);
+
     }
 
 }
