@@ -14,5 +14,3 @@ class StoreTaskAction
         return response()->json($task, 201);
     }
 }
-
-?>

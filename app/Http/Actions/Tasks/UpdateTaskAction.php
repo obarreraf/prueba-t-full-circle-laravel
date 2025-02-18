@@ -10,12 +10,14 @@ class UpdateTaskAction
 {
     public function __invoke(UpdateTaskRequest $request, Task $task): JsonResponse
     {
+        if (!$task) {
+            return response()->json(['message' => 'Task not found'], 404);
+        }
+
         $data = $request->validated();
         $task->status = $data['status'];
         $task->save();
 
-        return response()->json($task);
+        return response()->json($task,200);
     }
 }
-
-?>

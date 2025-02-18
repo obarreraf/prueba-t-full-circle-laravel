@@ -15,8 +15,6 @@ class IndexTaskAction
             return response()->json(['message' => 'No tasks found'], 404);
         }
 
-        return response()->json($tasks);
+        return response()->json($tasks,200);
     }
 }
-
-?>
