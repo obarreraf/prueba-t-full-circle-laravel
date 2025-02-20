@@ -24,7 +24,7 @@ class TaskController extends Controller
      *     path="/api/tasks",
      *     summary="Obtener todas las tareas",
      *     tags={"Tasks"},
-     *     @OA\Response(response=200, description="Lista de tareas"),
+     *     @OA\Response(response=200, description="Task List"),
      *     @OA\Response(response=404, description="No tasks found")
      * )
      */
@@ -42,10 +42,12 @@ class TaskController extends Controller
      *         required=true,
      *         @OA\JsonContent(
      *             required={"title"},
-     *             @OA\Property(property="title", type="string", example="Nueva tarea")
+     *             @OA\Property(property="title", type="string", example="Nueva tarea"),
+     *             @OA\Property(property="description", type="string", example="Descripcion nueva tarea"),
+     *             @OA\Property(property="status", type="string", example="pending")
      *         )
      *     ),
-     *     @OA\Response(response=201, description="Tarea creada exitosamente")
+     *     @OA\Response(response=201, description="Created Task")
      * )
      */
     public function store(StoreTaskRequest $request, StoreTaskAction $storeTaskAction)
@@ -68,10 +70,10 @@ class TaskController extends Controller
      *         required=true,
      *         @OA\JsonContent(
      *             required={"title"},
-     *             @OA\Property(property="title", type="string", example="Tarea actualizada")
+     *             @OA\Property(property="status", type="string", example="completed")
      *         )
      *     ),
-     *     @OA\Response(response=200, description="Tarea actualizada exitosamente")
+     *     @OA\Response(response=200, description="Updated Task")
      * )
      */
     public function update(UpdateTaskRequest $request, Task $task, UpdateTaskAction $updateTaskAction)
